@@ -11,8 +11,8 @@ type GameContextType = {
     setWinner: React.Dispatch<React.SetStateAction<"white" | "black" | null>>;
     aiEnabled: boolean;
     aiColor: "white" | "black";
-    requestAiMove: () => void;
-    setRequestAiMove: React.Dispatch<React.SetStateAction<() => void>>;
+    requestAiMove: (() => void) | null;
+    setRequestAiMove: React.Dispatch<React.SetStateAction<(() => void) | null>>;
     resetGame: () => void;
     time: number;
     setTime: React.Dispatch<React.SetStateAction<number>>;
@@ -23,42 +23,52 @@ type GameContextType = {
 };
 
 const GameContext = createContext<GameContextType | null>(null);
-const randomStart: TurnType = Math.random() < 0.5 ? "white" : "black";
+
 export const GameProvider = ({ children }: { children: React.ReactNode }) => {
-    const [turn, setTurn] = useState<TurnType>(randomStart);
+    const [turn, setTurn] = useState<TurnType>(
+        Math.random() < 0.5 ? "white" : "black"
+    );
     const [winner, setWinner] = useState<"white" | "black" | null>(null);
-    const aiEnabled = true; // later kan je een toggle in sidebar doen
+
+    const aiEnabled = true;
     const aiColor: "white" | "black" = "black";
+
     const [time, setTime] = useState(0);
     const [timerRunning, setTimerRunning] = useState(false);
-    const [requestAiMove, setRequestAiMove] = useState<() => void>(
-        () => () => {}
+
+    // AI move function (één enkele function pointer)
+    const [requestAiMove, setRequestAiMove] = useState<(() => void) | null>(
+        null
     );
 
     const resetGame = () => {
-        const randomStart: TurnType = Math.random() < 0.5 ? "white" : "black";
-        setTurn(randomStart);
+        setTurn(Math.random() < 0.5 ? "white" : "black");
         setWinner(null);
+        setRequestAiMove(null);
 
-        setRequestAiMove(() => () => {});
         setTime(0);
         setTimerRunning(false);
     };
+
+    // --- TIMER EFFECT ---
     useEffect(() => {
-        let interval: NodeJS.Timeout | null = null;
+        if (!timerRunning) return;
 
-        if (timerRunning) {
-            interval = setInterval(() => {
-                setTime((t) => t + 1);
-            }, 1000);
-        }
+        const interval = setInterval(() => {
+            setTime((t) => t + 1);
+        }, 1000);
 
-        return () => {
-            if (interval) clearInterval(interval);
-        };
+        return () => clearInterval(interval);
     }, [timerRunning]);
+
     const startTimer = () => setTimerRunning(true);
     const stopTimer = () => setTimerRunning(false);
+
+    // --- AUTO-START TIMER WHEN PLAY BEGINS ---
+    useEffect(() => {
+        if (winner) return;
+        if (!timerRunning) startTimer();
+    }, [turn]);
 
     return (
         <GameContext.Provider
