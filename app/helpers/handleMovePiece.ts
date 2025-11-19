@@ -1,5 +1,3 @@
-import { useCheckerBoard } from "../providers/CheckerBoardContext";
-import { useGame } from "../providers/GameContext";
 import { PieceType, TurnType } from "../types/type";
 import { getCapturesForPiece } from "./getCapturesForPiece";
 

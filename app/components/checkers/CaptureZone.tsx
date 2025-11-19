@@ -35,7 +35,6 @@ const CaptureZone = ({
                 rounded-l-2xl border border-[#5a3c1b]/70 shadow-xl 
                 p-3 flex flex-col justify-between"
         >
-            {/* 🔼 OPPONENT ZONE — normale richting */}
             <div className="flex flex-col gap-1">
                 {topRows.map((row, i) => (
                     <div key={i} className="flex gap-1 justify-start">
@@ -51,7 +50,6 @@ const CaptureZone = ({
                 ))}
             </div>
 
-            {/* 🔽 YOUR ZONE — nieuwe rijen bovenaan */}
             <div className="flex flex-col gap-1">
                 {bottomRows.map((row, i) => (
                     <div key={i} className="flex gap-1 justify-start">

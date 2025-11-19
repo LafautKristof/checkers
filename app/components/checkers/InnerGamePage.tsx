@@ -7,13 +7,14 @@ import CheckerBoard from "./CheckerBoard";
 import Sidebar from "./SideBar";
 
 const InnerGamePage = () => {
-    const userName =
-        typeof window !== "undefined" ? localStorage.getItem("playerName") : "";
-
     const { capturedByWhite, capturedByBlack } = useCheckerBoard();
     const boardRef = useRef<HTMLDivElement>(null);
     const [boardHeight, setBoardHeight] = useState<number | null>(null);
-
+    const [userName, setUserName] = useState("");
+    useEffect(() => {
+        const name = localStorage.getItem("playerName") || "";
+        setUserName(name);
+    }, []);
     useEffect(() => {
         if (boardRef.current) {
             setBoardHeight(boardRef.current.offsetHeight);
@@ -30,8 +31,8 @@ const InnerGamePage = () => {
                 <div className="flex  items-center ">
                     <CaptureZone
                         height={boardHeight ?? undefined}
-                        capturedTop={capturedByBlack} // 🔼 tegenstander wint
-                        capturedBottom={capturedByWhite} // 🔽 jij wint
+                        capturedTop={capturedByBlack} // tegenstander wint
+                        capturedBottom={capturedByWhite} //  ik win
                     />
                     <div ref={boardRef}>
                         <CheckerBoard />

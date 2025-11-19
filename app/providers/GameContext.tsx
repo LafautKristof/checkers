@@ -36,7 +36,6 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
     const [time, setTime] = useState(0);
     const [timerRunning, setTimerRunning] = useState(false);
 
-    // AI move function (één enkele function pointer)
     const [requestAiMove, setRequestAiMove] = useState<(() => void) | null>(
         null
     );

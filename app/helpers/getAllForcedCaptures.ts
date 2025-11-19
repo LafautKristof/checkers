@@ -1,9 +1,6 @@
 import { PieceType } from "../types/type";
 import { getCapturesForPiece } from "./getCapturesForPiece";
 
-/**
- * Geeft alle stukken terug die MOETEN slaan
- */
 export function getAllForcedCaptures(
     turn: "white" | "black",
     pieces: PieceType[]

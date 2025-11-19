@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 type PieceType = {
     id: string;
@@ -61,10 +61,16 @@ export const CheckerBoardProvider = ({
     const [possibleMoves, setPossibleMoves] = useState<
         { row: number; col: number; capture?: string }[]
     >([]);
-    const userName = localStorage.getItem("playerName");
+
     const [capturedByWhite, setCapturedByWhite] = useState<PieceType[]>([]);
     const [capturedByBlack, setCapturedByBlack] = useState<PieceType[]>([]);
+    const [userName, setUserName] = useState<string | null>(null);
 
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            setUserName(localStorage.getItem("playerName"));
+        }
+    }, []);
     const restartLocalBoard = () => {
         setPieces(initialPieces);
         setSelectedPiece(null);

@@ -3,9 +3,6 @@ import { getCapturesForPiece } from "./getCapturesForPiece";
 import { getAllForcedCaptures } from "./getAllForcedCaptures";
 import { getMovesForPiece } from "./GetMovesForPiece";
 
-/**
- * Pure function – GEEN React hooks!
- */
 export function handleSelectPieceLogic({
     pieceId,
     pieces,
