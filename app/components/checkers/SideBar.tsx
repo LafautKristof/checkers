@@ -12,6 +12,7 @@ export default function Sidebar({
     className?: string;
 }) {
     const { turn, winner, resetGame, time } = useGame();
+    console.log("winner in sidebar:", winner);
     const { restartLocalBoard } = useCheckerBoard();
     const formatTime = (sec: number) => {
         const m = Math.floor(sec / 60)
@@ -54,7 +55,11 @@ export default function Sidebar({
 
             {winner && (
                 <div className="bg-green-600 text-center p-3 rounded-xl font-bold text-lg shadow">
-                    🎉 {winner.toUpperCase()} WINS!
+                    🎉{" "}
+                    {winner === "white"
+                        ? localStorage.getItem("playerName")
+                        : "Oponent"}{" "}
+                    WINS!
                 </div>
             )}
             <div className="bg-black/20 p-3 rounded-lg border border-yellow-500/40 text-center">
