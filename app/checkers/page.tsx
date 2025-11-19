@@ -1,7 +1,7 @@
 "use client";
 
-import { GameProvider } from "../components/checkers/GameContext";
-import { CheckerBoardProvider } from "../components/checkers/CheckerBoardContext";
+import { GameProvider } from "../providers/GameContext";
+import { CheckerBoardProvider } from "../providers/CheckerBoardContext";
 
 import InnerGamePage from "../components/checkers/InnerGamePage";
 

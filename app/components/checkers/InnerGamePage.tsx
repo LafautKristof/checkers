@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { useCheckerBoard } from "./CheckerBoardContext";
+import { useCheckerBoard } from "../../providers/CheckerBoardContext";
 import { User } from "lucide-react";
 import CaptureZone from "./CaptureZone";
 import CheckerBoard from "./CheckerBoard";

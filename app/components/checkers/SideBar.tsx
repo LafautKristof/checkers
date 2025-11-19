@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useGame } from "./GameContext";
-import { useCheckerBoard } from "./CheckerBoardContext";
+import { useGame } from "../../providers/GameContext";
+import { useCheckerBoard } from "../../providers/CheckerBoardContext";
 
 export default function Sidebar({
     height,

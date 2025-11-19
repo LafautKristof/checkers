@@ -1,8 +1,8 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import Piece from "./Piece";
-import { useGame } from "./GameContext";
-import { useCheckerBoard } from "./CheckerBoardContext";
+import { useGame } from "../../providers/GameContext";
+import { useCheckerBoard } from "../../providers/CheckerBoardContext";
 type PieceType = {
     id: string;
     color: "white" | "black";
@@ -78,16 +78,6 @@ export default function CheckerBoard() {
     const pieceAt = (row: number, col: number) =>
         pieces.find((p) => p.row === row && p.col === col);
 
-    const getNextCaptures = (
-        piece: PieceType,
-        newRow: number,
-        newCol: number
-    ) => {
-        // tijdelijke kopie van het stuk met nieuwe positie
-        const movedPiece = { ...piece, row: newRow, col: newCol };
-
-        return getCapturesForPiece(movedPiece);
-    };
     // ---------------------------------------
     // 📌 HULP: Verplichte slagen zoeken
     // ---------------------------------------
